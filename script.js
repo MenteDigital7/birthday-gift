@@ -1,5 +1,5 @@
 // configuracion de la fecha de cumpleaños
-const fechaCumple = new Date(2026, 6, 11, 0, 0, 0).getTime(); // 11 de julio de 2026
+const fechaCumple = new Date(2026, 5, 1, 0, 0, 0).getTime(); // 11 de julio de 2026
 
 function actualizarReloj() {
     const ahora = new Date().getTime();
@@ -25,7 +25,7 @@ function actualizarReloj() {
 }
 
 // iniciar y ejecutar el reloj cada segundo
-const intervalo = setInrerval(actualizarReloj, 1000);
+const intervalo = setInterval(actualizarReloj, 1000);
 actualizarReloj();
 
 
