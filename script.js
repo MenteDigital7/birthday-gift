@@ -1,5 +1,8 @@
+//musica
+const musica = new Audio('cancion.mp3');
+
 // configuracion de la fecha de cumpleaños
-const fechaCumple = new Date(2026, 5, 1, 0, 0, 0).getTime(); // 11 de julio de 2026
+const fechaCumple = new Date().getTime() - 1000; // 11 de julio de 2026
 
 function actualizarReloj() {
     const ahora = new Date().getTime();
@@ -7,10 +10,10 @@ function actualizarReloj() {
 
     // si es el 11 de julio o posterios
     if (distancia <= 0) {
+        clearInterval(intervalo);
         document.getElementById("seccion-reloj").style.display ="none";
         document.getElementById("contenido-regalo").style.display = "block";
         lanzarConfeti();
-        clerarInterval(intervalo);
         return;
     }
 
@@ -41,7 +44,7 @@ function lanzarConfeti() {
 // control del boton de reproducir musica
 function controlarMusica() {
     const bontonMusica = document.getElementById("boton-musica");
-    const audio = document.getElementById("fondo-musica");
+    const audio = document.getElementById("musica-fondo");
 
     if (musica.paused) {
         musica.play();
@@ -57,11 +60,11 @@ function controlarMusica() {
 
 // efectp de apertura y maquina de escribri 
 function abrirCarta(elemento) {
-    const parrafp = elemento.querySelector('.contenido-carta');
+    const parrafo = elemento.querySelector('.contenido-carta');
     
     // Si ya esta abierta, la cierra al tocarla de nuevo
     if (parrafo.classList.contains('abierta')) {
-        pararafo.classList.remove('abierta');
+        parrafo.classList.remove('abierta');
         return;
     }
     parrafo.classList.add('abierta');
@@ -69,6 +72,7 @@ function abrirCarta(elemento) {
     // ejecuta el efecto maquina de escribir
     if (!parrafo.dataset.escrito) {
         const textoCompleto = parrafo.getAttribute('data-texto');
+        parrafo.dataset.escrito = true;
         let i = 0;
         parrafo.innerHTML = "";
 
@@ -76,10 +80,9 @@ function abrirCarta(elemento) {
             if (i < textoCompleto.length) {
                 parrafo.innerHTML += textoCompleto.charAt(i);
                 i++;
-                setTimeout(escribir, 25);
+                setTimeout(escribir, 40);
             }
         }
         escribir();
-        parrafo.dataset.escrito = true;
    }
 }

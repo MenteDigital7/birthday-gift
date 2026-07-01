@@ -124,3 +124,9 @@ header p {
     color: #f1f0ff;
     font-weight: 500;
 }
+
+.contenido-carta.abierta {
+    max-height: 600px;
+    opacity: 1 !important;
+    margin-top: 12px !important;
+}
