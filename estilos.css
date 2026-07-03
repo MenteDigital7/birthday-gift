@@ -130,3 +130,23 @@ header p {
     opacity: 1 !important;
     margin-top: 12px !important;
 }
+
+/* estado oculto de la carta */
+.contenido-carta {
+    display: block !important;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin-top: 0;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #4a5568;
+    transition: max-height 0.4s ease-out, opacity 0.3s ease;
+}
+
+/* Estado abierto cuando se da clic */
+.contenido-carta.abierta {
+    max-height: 1000px; 
+    opacity: 1;
+    margin-top: 12px;
+}

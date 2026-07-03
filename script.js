@@ -72,25 +72,60 @@ function abrirCarta(elemento) {
     parrafo.classList.add('abierta');
 
     // ejecuta el efecto maquina de escribir
-    if (!parrafo.dataset.escrito  !== "si") {
+    if (parrafo.dataset.escrito !== "si" ) {
         const textoCompleto = parrafo.getAttribute('data-texto');
         if (!textoCompleto) return;
    
         parrafo.dataset.escrito = "si";
         const letras = Array.from(textoCompleto);
+
+        // EL TRUCO: Llenamos el párrafo con el texto en transparente
+        // Creamos un <span> interno para pintar las letras reales una a una encima
+        parrafo.style.color = "transparent"; 
+        parrafo.innerHTML = textoCompleto; 
+
+        const capaVisible = document.createElement('span');
+        capaVisible.style.color = "#4a5568"; // El color real de tus letras
+        capaVisible.style.position = "absolute";
+        capaVisible.style.left = "0";
+        capaVisible.style.top = "0";
+        capaVisible.style.width = "100%";
+        capaVisible.style.height = "100%";
+        capaVisible.style.pointerEvents = "none";
+
+        // Nos aseguramos de que el párrafo tenga posición relativa para alinear la capa
+        parrafo.style.position = "relative";
+        parrafo.appendChild(capaVisible);
+
+
+       
+
         let i = 0;
+        let ultimoTiempo = 0;
+        const velocidadMs = 30;
 
-        parrafo.innerHTML = "";
-        const nodoTexto = document.createTextNode("");
-        parrafo.appendChild(nodoTexto);
+            function bucleEscritura(tiempoActual) {
+                if (!ultimoTiempo) ultimoTiempo = tiempoActual;
+                const delta = tiempoActual - ultimoTiempo;
 
-        const temporizador = setInterval(() => {
-            if (i < letras.length) {
-                nodoTexto.appendData(letras[i]);
-                i++;
-            } else {
-                clearInterval(temporizador);
+                // Solo escribe cuando pasa el tiempo configurado, sincronizado con la pantalla
+                if (delta >= velocidadMs) {
+                    if (i < letras.length) { 
+                        capaVisible.innerHTML += letras[i]; 
+                        i++;
+                        ultimoTiempo = tiempoActual;
+
+                    } else {
+                        parrafo.style.color = "#4a5568";
+                        capaVisible.remove(); // eliminamos la capa visible
+                        return; // termina la animacion cuando se escriben todas las letras
+                    }
+                }
+                requestAnimationFrame(bucleEscritura);
             }
-        }, 35);  // Ajustado a 35ms para que mantenga
+            requestAnimationFrame(bucleEscritura); 
+        }
+         
     }
-}
+
+ 
