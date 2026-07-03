@@ -1,5 +1,5 @@
 //musica
-const musica = new Audio('cancion.mp3');
+const musica = new Audio('gone.mp3');
 
 // configuracion de la fecha de cumpleaños
 const fechaCumple = new Date().getTime() - 1000; // 11 de julio de 2026
