@@ -3,15 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilos.css">
+    <script  src ="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script> 
+  
     <title>FELIZ CUMPLE</title>
 </head>
-  meta name = "viewport" content = "width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="estilos.css">
-  <script  src ="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script> 
+  
 <body>
 
-    <!-- Reproductor de musica de fondo -->
+    <!-- fondo animado --> 
+    <div class ="fondo-animado"></div>
+
+    <!-- Reproductor de musica de fondo --> 
     <button id="boton-musica" onclick="controlarMusica()">🎵</button>
+    <audio id="musica-fondo" src="gone.mp3" loop></audio>
 
     <!-- Seccion de cuenta regresica-->
      <div id="seccion-reloj" class="contenedor-reloj">
@@ -37,7 +42,9 @@
                     De verdad me dio muchísima pena no poder acompañarte en tu dia especial, 
                     me quedé con muchas ganas de celebrar contigo. Pero no quería dejar pasar 
                     tu día sin hacerte un detalle especial, así que decidí armarte esto con un 
-                    poco de código para recordarte lo mucho que te aprecio. ¡Te mando un abrazote gigante!"></p>
+                    poco de código para recordarte lo mucho que te aprecio. ¡Te mando un abrazote gigante!"
+                    data-indice="0"></data>></p>
+                
             </div>
 
             <!-- Carta 2 -->
@@ -49,7 +56,8 @@
                     (que las calorías de cumpleañera no cuentan). 
                     Espero de corazón que este día esté 
                     lleno de puras risas y momentos bonitos, 
-                    porque te lo mereces por completo" ></p>
+                    porque te lo mereces por completo" 
+                    data-indice="0"></p>
             </div>
             
             
@@ -58,7 +66,8 @@
                 <h2>Lo que va de estos 2 meses</h2>
                 <p class="contenido-carta" data-texto="Parece mentira que solo vayan un par de meses desde que empezamos a hablar.
                     En este tiempo ya descubrí que eres una persona increíble, súper divertida 
-                    y con una vibra genial. Qué buena fortuna haber coincidido en ese bus"></p>
+                    y con una vibra genial. Qué buena fortuna haber coincidido en ese bus"
+                    data-indice="0"></p>
             </div>
 
 
@@ -68,7 +77,8 @@
                 <p class="contenido-carta" data-texto="Como falté a la fiesta, oficialmente te debo la celebración. 
                     Así que este mensaje es un vale por una salida a comer o por unos 
                     helados para ponernos al día y celebrar tus 18 como se debe. 
-                    ¡Tú eliges el día!"></p> 
+                    ¡Tú eliges el día!"
+                    data-indice="0"></p> 
             </div>
         </main> 
     </div>

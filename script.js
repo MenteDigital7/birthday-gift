@@ -1,47 +1,31 @@
 //musica
-const musica = new Audio();
-musica.src = "gone.mp3";
-musica.loop = false;
-musica.preload = "auto";
-
-let desbloqueado = false;
-
-document.addEventListener("click"), () => {
-    if (!desbloqueado) {
-        musica.play();
-        desbloqueado = true;
-    }
-}
 
 // configuracion de la fecha de cumpleaños
-const fechaCumple = new Date().getTime() - 1000; // 11 de julio de 2026
+const fechaCumple = new Date().getTime() - 1000;
 
 function actualizarReloj() {
     const ahora = new Date().getTime();
     const distancia = fechaCumple - ahora;
 
-    // si es el 11 de julio o posterios
     if (distancia <= 0) {
         clearInterval(intervalo);
-        document.getElementById("seccion-reloj").style.display ="none";
+        document.getElementById("seccion-reloj").style.display = "none";
         document.getElementById("contenido-regalo").style.display = "block";
         lanzarConfeti();
         return;
     }
 
-    // calculos de tiempo
     const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
     const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
     const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
 
-    // redenrizar en html
     document.getElementById("reloj").innerHTML = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
 }
 
-// iniciar y ejecutar el reloj cada segundo
 const intervalo = setInterval(actualizarReloj, 1000);
 actualizarReloj();
+// iniciar y ejecutar el reloj cada segundo
 
 
 // funcion para lanzar confeti
@@ -55,21 +39,19 @@ function lanzarConfeti() {
 
 // control del boton de reproducir musica
 function controlarMusica() {
+    const audioHTML = document.getElementById("musica-fondo");
     const boton = document.getElementById("boton-musica");
-    
-    musica.play().then(() => {
-        if (!musica.paused) {
-            boton.innerHTML = "⏸️";
-        }
-    }).catch((err) => {
-        console.error("Error al reproducir la musica en el movil", err);
-    });
 
-    if (!musica.paused) {
-        musica.pause();
+    if (!audioHTML) return;
+
+    if (audioHTML.paused) {
+        audioHTML.play()
+            .then(() => boton.innerHTML = "⏸️")
+            .catch(err => console.error("Error al reproducir:", err));
+    } else {
+        audioHTML.pause();
         boton.innerHTML = "🎵";
     }
-    
 }
 
 
@@ -81,66 +63,80 @@ function abrirCarta(elemento) {
     
     // Si ya esta abierta, la cierra al tocarla de nuevo
     if (parrafo.classList.contains('abierta')) {
-        parrafo.classList.remove('abierta');
+        parrafo.classList.remove("abierta");
         return;
     }
     parrafo.classList.add('abierta');
 
     // ejecuta el efecto maquina de escribir
-    if (parrafo.dataset.escrito !== "si" ) {
+    
         const textoCompleto = parrafo.getAttribute('data-texto');
+        let i = Number(parrafo.getAttribute("data-indice"));
         if (!textoCompleto) return;
-   
-        parrafo.dataset.escrito = "si";
-        const letras = Array.from(textoCompleto);
 
-        // EL TRUCO: Llenamos el párrafo con el texto en transparente
-        // Creamos un <span> interno para pintar las letras reales una a una encima
-        parrafo.style.color = "transparent"; 
-        parrafo.innerHTML = textoCompleto; 
-
-        const capaVisible = document.createElement('span');
-        capaVisible.style.color = "#4a5568"; // El color real de tus letras
-        capaVisible.style.position = "absolute";
-        capaVisible.style.left = "0";
-        capaVisible.style.top = "0";
-        capaVisible.style.width = "100%";
-        capaVisible.style.height = "100%";
-        capaVisible.style.pointerEvents = "none";
-
-        // Nos aseguramos de que el párrafo tenga posición relativa para alinear la capa
-        parrafo.style.position = "relative";
-        parrafo.appendChild(capaVisible);
+        parrafo.textContent = textoCompleto.slice(0,i);
 
 
-       
-
-        let i = 0;
         let ultimoTiempo = 0;
         const velocidadMs = 30;
 
             function bucleEscritura(tiempoActual) {
+                if (!parrafo.classList.contains("abierta")) {
+                    return;
+                }
                 if (!ultimoTiempo) ultimoTiempo = tiempoActual;
                 const delta = tiempoActual - ultimoTiempo;
 
                 // Solo escribe cuando pasa el tiempo configurado, sincronizado con la pantalla
                 if (delta >= velocidadMs) {
-                    if (i < letras.length) { 
-                        capaVisible.innerHTML += letras[i]; 
+                    if (i < textoCompleto.length) { 
+                        parrafo.textContent += textoCompleto[i]; 
                         i++;
+                        parrafo.setAttribute("data-indice",i);
                         ultimoTiempo = tiempoActual;
 
                     } else {
                         parrafo.style.color = "#4a5568";
-                        capaVisible.remove(); // eliminamos la capa visible
+                        capaVisible.innerHTML = textoCompleto;// eliminamos la capa visible
+                        parrafo.setAttribute("data-indice", 0);
                         return; // termina la animacion cuando se escriben todas las letras
                     }
+                    
+                
                 }
                 requestAnimationFrame(bucleEscritura);
+                
             }
             requestAnimationFrame(bucleEscritura); 
         }
          
-    }
+    
 
- 
+// fondo animado
+const fondo = document.querySelector(".fondo-animado");
+    for (let i = 0;i < 35;i++){
+
+        const particula = document.createElement("span");
+        const tamaño = Math.random() * 8 + 4;
+        const duracion = Math.random() * 4 + 4;
+        const retraso = Math.random() * 5;
+        const opacidad = Math.random();
+
+        particula.style.width = tamaño + "px";
+        particula.style.height = tamaño + "px";
+        particula.style.left = Math.random() * 100 + "%";
+        particula.style.animationDuration = duracion + "s";
+        particula.style.animationDelay = retraso + "s";
+        particula.style.opacity = opacidad;
+
+        fondo.appendChild(particula);
+
+    }
+console.log("El script cargó correctamente");
+const boton = document.getElementById("boton-musica");
+
+console.log(boton);
+
+boton.addEventListener("click", () => {
+    console.log("Se hizo click en el botón");
+});
