@@ -65,6 +65,9 @@ function lanzarConfeti() {
 function controlarMusica() {
     const audioHTML = document.getElementById("fondo-musica");
     const boton = document.getElementById("boton-musica");
+    console.log(audioHTML.paused);
+    console.log(audioHTML.currentTime);
+    console.log(audioHTML.readyState);
 
     if (!audioHTML) return;
 
