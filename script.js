@@ -63,25 +63,28 @@ function lanzarConfeti() {
 
 // control del boton de reproducir musica
 function controlarMusica() {
-    const audioHTML = document.getElementById("musica-fondo");
+    const audioHTML = document.getElementById("fondo-musica");
     const boton = document.getElementById("boton-musica");
 
     if (!audioHTML) return;
 
     if (audioHTML.paused) {
         audioHTML.play()
-            .then(() => boton.innerHTML = "⏸️")
-            .catch(err => console.error("Error al reproducir:", err));
+            .then(() => boton.textContent = "⏸️")
+            .catch(err => {
+            console.error(err);
+            alert("toca nuevamente el boton para iniciar la musica");
+        });
     } else {
         audioHTML.pause();
-        boton.innerHTML = "🎵";
+        boton.textContent = "🎵";
     }
 }
-
 // efecto de apertura y maquina de escribir version 4.4   
 function abrirCarta(elemento) {
 
     const parrafo = elemento.querySelector(".contenido-carta");
+    const carta = elemento;
     const textoSpan = parrafo.querySelector(".texto");
     const cursor = parrafo.querySelector(".cursor");
     if (!parrafo) return;
@@ -89,12 +92,14 @@ function abrirCarta(elemento) {
     // si esta abrierta se cierra
     if (parrafo.classList.contains("abierta")){
         parrafo.classList.remove("abierta");
+        carta.classList.remove("abierta");
         cursor.style.display = "none";
         return;
     }
 
     // si esta cerrada la abrimos 
     parrafo.classList.add("abierta");
+    carta.classList.add("abierta");
     cursor.style.display = "inline";
     
     const textoCompleto = parrafo.dataset.texto;

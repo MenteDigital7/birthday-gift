@@ -112,8 +112,20 @@ header p {
     margin-bottom: 20px;
     box-shadow: 0 4px 12px rgba(43, 58, 74, 0.04);
     border-left: 5px solid #6c5ce7;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    
     cursor: pointer;
+    transform: scale(1);
+    z-index: 1;
+
+    transition:
+        box-shadow 0.25s ease,
+        background-color 0.25s ease;
+
+}
+.carta.abierta{
+    z-index: 10;
+    box-shadow: 0 12px 28px rgba(43, 58, 74, 0.12);
+    background-color: #fffdfc;
 }
 
 /* Efecto táctil nativo para celulares al presionar */
@@ -199,6 +211,7 @@ header p {
     color: #4a5568;
     transition: opacity 0.3s ease;
     white-space: pre-line;
+    
 }
 
 /* Estado abierto cuando se da clic */
@@ -224,4 +237,32 @@ header p {
     100%{
         opacity: 1;
     }
+}
+
+
+/* BOTON DE REPRODUCTOR DE MUSICA*/
+#boton-musica{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    background: #6c5ce7;
+    color: white;
+    font-size: 22px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: 
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+#boton-musica :hover{
+    transform: scale(1.08);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, .25);
 }
