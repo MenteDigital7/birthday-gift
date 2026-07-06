@@ -139,7 +139,7 @@ header p {
     line-height: 1.5;
     color: #4f5e71;
     margin-top: 12px;
-    text-align: justify;
+    text-align: left;
 }
 
 /* ==========================================================================
@@ -198,6 +198,7 @@ header p {
     line-height: 1.5;
     color: #4a5568;
     transition: opacity 0.3s ease;
+    white-space: pre-line;
 }
 
 /* Estado abierto cuando se da clic */

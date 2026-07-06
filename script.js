@@ -27,7 +27,31 @@ const intervalo = setInterval(actualizarReloj, 1000);
 actualizarReloj();
 // iniciar y ejecutar el reloj cada segundo
 
+const cartas = document.querySelectorAll(".contenido-carta");
+console.log("Cantidad de cartas:", cartas.length);
+    cartas.forEach(parrafo => {
+        const texto = parrafo.textContent.trim();
+        console.log("Texto:", texto);
+        parrafo.dataset.texto = texto;
+        parrafo.textContent = "";
+        parrafo.dataset.indice = 0;
+   
+        // creamos el span del texto
+        const textoSpan = document.createElement("span");
+        textoSpan.classList.add("texto");
+        
+        // creamos el cursor
+        const cursor = document.createElement("span");
+        cursor.classList.add("cursor");
+        cursor.textContent = "▌";
+        cursor.style.display = "none";
 
+        // los agregamos al parrafo
+        parrafo.appendChild(textoSpan);
+        parrafo.appendChild(cursor);
+
+    });
+    
 // funcion para lanzar confeti
 function lanzarConfeti() {
     confetti({
@@ -54,63 +78,69 @@ function controlarMusica() {
     }
 }
 
-
-// efectp de apertura y maquina de escribri 
+// efecto de apertura y maquina de escribir version 4.4   
 function abrirCarta(elemento) {
-    const parrafo = elemento.querySelector('.contenido-carta');
 
+    const parrafo = elemento.querySelector(".contenido-carta");
+    const textoSpan = parrafo.querySelector(".texto");
+    const cursor = parrafo.querySelector(".cursor");
     if (!parrafo) return;
-    
-    // Si ya esta abierta, la cierra al tocarla de nuevo
-    if (parrafo.classList.contains('abierta')) {
+
+    // si esta abrierta se cierra
+    if (parrafo.classList.contains("abierta")){
         parrafo.classList.remove("abierta");
+        cursor.style.display = "none";
         return;
     }
-    parrafo.classList.add('abierta');
 
-    // ejecuta el efecto maquina de escribir
+    // si esta cerrada la abrimos 
+    parrafo.classList.add("abierta");
+    cursor.style.display = "inline";
     
-        const textoCompleto = parrafo.getAttribute('data-texto');
-        let i = Number(parrafo.getAttribute("data-indice"));
-        if (!textoCompleto) return;
+    const textoCompleto = parrafo.dataset.texto;
+    console.log(textoCompleto);
+    let i = Number(parrafo.dataset.indice);
+    console.log(i);
+    textoSpan.textContent = textoCompleto.slice(0,i);
+    const velocidadBase = 45;
+    let ultimoTiempo = 0;
+    let velocidadActual = velocidadBase;
+  
 
-        parrafo.textContent = textoCompleto.slice(0,i);
-
-
-        let ultimoTiempo = 0;
-        const velocidadMs = 30;
-
-            function bucleEscritura(tiempoActual) {
-                if (!parrafo.classList.contains("abierta")) {
-                    return;
-                }
-                if (!ultimoTiempo) ultimoTiempo = tiempoActual;
-                const delta = tiempoActual - ultimoTiempo;
-
-                // Solo escribe cuando pasa el tiempo configurado, sincronizado con la pantalla
-                if (delta >= velocidadMs) {
-                    if (i < textoCompleto.length) { 
-                        parrafo.textContent += textoCompleto[i]; 
-                        i++;
-                        parrafo.setAttribute("data-indice",i);
-                        ultimoTiempo = tiempoActual;
-
-                    } else {
-                        parrafo.style.color = "#4a5568";
-                        capaVisible.innerHTML = textoCompleto;// eliminamos la capa visible
-                        parrafo.setAttribute("data-indice", 0);
-                        return; // termina la animacion cuando se escriben todas las letras
-                    }
-                    
-                
-                }
-                requestAnimationFrame(bucleEscritura);
-                
+   
+    function bucleEscritura(tiempoActual) {
+    
+            if (!parrafo.classList.contains("abierta")) {
+                return;
             }
-            requestAnimationFrame(bucleEscritura); 
-        }
-         
+            if(!ultimoTiempo){
+                ultimoTiempo = tiempoActual;
+            }
+
+            const delta = tiempoActual - ultimoTiempo;
+            if (delta >= velocidadActual) {
+                console.log("Escribiendo..",i);
+                if (i < textoCompleto.length){
+                    textoSpan.textContent += textoCompleto[i];
+                    i++;
+                    parrafo.dataset.indice = i;
+                    ultimoTiempo = tiempoActual;
+                    velocidadActual = 35 + Math.random() * 30;
+                } else {
+                    parrafo.dataset.indice = 0;
+                    textoSpan.textContent = textoCompleto;
+                    cursor.style.display = "none";
+                return;
+                }      
+            }
+            requestAnimationFrame(bucleEscritura);      
+       
     
+        }
+        requestAnimationFrame(bucleEscritura);
+
+}
+
 
 // fondo animado
 const fondo = document.querySelector(".fondo-animado");
@@ -132,11 +162,4 @@ const fondo = document.querySelector(".fondo-animado");
         fondo.appendChild(particula);
 
     }
-console.log("El script cargó correctamente");
-const boton = document.getElementById("boton-musica");
 
-console.log(boton);
-
-boton.addEventListener("click", () => {
-    console.log("Se hizo click en el botón");
-});
