@@ -1,6 +1,5 @@
 /* ==========================================================================
-   ESTILOS GENERALES Y RESET
-   Optimizado 100% para pantallas de celulares.
+   RESET
    ========================================================================== */
 
 *, *::before, *::after {
@@ -9,8 +8,11 @@
     padding: 0;
 }
 
+/*==============================
+  ESTILOS GENERALES
+==============================*/
 body {
-    background: linear-gradient(135deg, #f7f9fc 0%, #eef2f7 100%);
+    background: linear-gradient(135deg, #f8f4fc , #eef2ff, #fff7fb);
     min-height: 100vh;
     display: block;
     padding: 30px 15px;
@@ -19,7 +21,9 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* fondo animado */
+/*==============================
+  FONDO ANIMADO
+==============================*/
 .fondo-animado {
     position: fixed;
     top: 0;
@@ -60,22 +64,67 @@ body {
     top: 85%;
     left: 45%;
 }
-
-@keyframes mover  {
-    from{
-        top: 100%;
-    }
-    to{
-        top: -10%;
-    }
-}
-
-
-
 .fondo-animado span {
     animation: mover 5s linear infinite ;
 }
-/* Encabezado Principal */
+
+/*==============================
+  RELOJ
+==============================*/
+
+#seccion-reloj {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+    background: linear-gradient(135deg,#f6f4ff,#ece9ff);
+    z-index: 900;  
+}
+#secion-reloj h2 {
+    font-size: 2rem;
+    color: #5b4cc4;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+.relog-numeros {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #6c5ce7;
+    margin: 20px 0;
+    background: white;
+    padding: 20px 35px;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(108,92,231,.15);
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    animation: respirarReloj 2s infinite ease-in-out;
+}
+#secion-relog p {
+    color: #6b7c93;
+    font-size: 1.05;
+    max-width: 350px;
+    line-height: 1.5;
+}
+.conenedor-rejoj {
+    background-color: white;
+    border-radius: 22px;
+    padding: 40px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.8);
+    max-width: 520px;
+    margin: auto;
+    animation: flotar 4s ease-in-out infinite;
+
+}
+.emoji-regalo {
+    animation: flotar 2.5s ease-in-out infinite;
+}
+/*==============================
+  CONTENIDO PRINCIPAL
+==============================*/
 header {
     text-align: center;
     margin-bottom: 35px;
@@ -89,12 +138,16 @@ header h1 {
     margin-bottom: 8px;
     letter-spacing: -0.5px;
 }
-
 header p {
     font-size: 0.95rem;
     color: #6b7c93;
     font-weight: 400;
 }
+
+
+/*==============================
+  CARTAS
+==============================*/
 
 /* Contenedor de las Cartas */
 .contenedor-cartas {
@@ -153,9 +206,31 @@ header p {
     margin-top: 12px;
     text-align: left;
 }
+/* estado oculto de la carta */
+.contenido-carta {
+    display: block !important;
+    max-height: 0;
+    opacity: 0;
+    position: relative;
+    overflow: hidden;
+    margin-top: 0;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #4a5568;
+    transition: opacity 0.3s ease;
+    white-space: pre-line;
+    
+}
+
+/* Estado abierto cuando se da clic */
+.contenido-carta.abierta {
+    max-height: 1000px; 
+    opacity: 1;
+    margin-top: 12px;
+}
 
 /* ==========================================================================
-   VARIACIONES DE COLORES POR SECCIÓN
+   VARIACIONES DE CARTAS
    ========================================================================== */
 
 /* Carta 1: Bienvenida/Felicitación */
@@ -198,34 +273,65 @@ header p {
     margin-top: 12px !important;
 }
 
-/* estado oculto de la carta */
-.contenido-carta {
-    display: block !important;
-    max-height: 0;
-    opacity: 0;
-    position: relative;
-    overflow: hidden;
-    margin-top: 0;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #4a5568;
-    transition: opacity 0.3s ease;
-    white-space: pre-line;
-    
+
+
+/*==============================
+  REPRODUCTOR DE MUSICA
+==============================*/
+
+/* BOTON DE REPRODUCTOR DE MUSICA*/
+#boton-musica{
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg,#9b7cff,#7c6ce7);
+    color: white;
+    font-size: 28px;
+    box-shadow: 0 8px 20px rgba(108, 92, 231,.30);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: 
+        transform .2s ease,
+        box-shadow .2s ease,
+        background .25s ease;
+    z-index: 999;    
+}
+#boton-musica:hover{
+    transform: scale(1.08);
+    box-shadow: 0 12px 28px rgba(108, 92, 231, .45);
+}
+#boton-musica:active{
+    transform: scale(.94);
+}
+#boton-musica:focus{
+    outline: none;
+}
+#boton-musica.reproduciendo #icono-musica{
+    animation: brilloLatido 2s infinite;
+}
+#icono-musica{
+    transform-origin:center ;
 }
 
-/* Estado abierto cuando se da clic */
-.contenido-carta.abierta {
-    max-height: 1000px; 
-    opacity: 1;
-    margin-top: 12px;
-}
 
+/*==============================
+  ANIMACIONES
+==============================*/
 
-
-/* cursor de la maquina de escrivir*/
-.cursor{
-    animation: parpadear 0.8s infinite;
+@keyframes mover  {
+    from{
+        top: 100%;
+    }
+    to{
+        top: -10%;
+    }
 }
  @keyframes parpadear {
     0% {
@@ -238,31 +344,322 @@ header p {
         opacity: 1;
     }
 }
-
-
-/* BOTON DE REPRODUCTOR DE MUSICA*/
-#boton-musica{
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    background: #6c5ce7;
-    color: white;
-    font-size: 22px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    transition: 
-        transform .2s ease,
-        box-shadow .2s ease;
+@keyframes brilloLatido{
+    0%{
+        box-shadow:
+            0 8px 20px rgba(108,92,231,.30),
+            0 0 0 rgba(155,124,255,0);
+    }
+    50%{
+        box-shadow:
+            0 8px 35px rgba(108,92,231,.70),
+            0 0 20px rgba(155,124,255,.45);
+    }
+    100%{
+        box-shadow:
+            0 8px 20px rgba(108,92,231,.30),
+            0 0 0 rgba(155,124,255,0);
+    }
 }
-#boton-musica :hover{
-    transform: scale(1.08);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, .25);
+@keyframes latidoIcono{
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.18);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes popBoton{
+    0% {
+        transform: scale(1);
+    }
+    30% {
+        transform: scale(0.88);
+    }
+    65% {
+        transform: scale(1.10);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes flotar{
+    0% {
+        transform: translate(0px);
+    }
+    50% {
+        transform: translate(-8px);
+    }
+    100% {
+        transform: translate(0px);
+    }
+}
+@keyframes aparecerSobre{
+
+    0%{
+        opacity:0;
+        transform:translateX(-50%) scale(.85);
+    }
+
+    70%{
+        opacity:1;
+        transform:translateX(-50%) scale(1.05);
+    }
+
+    100%{
+        opacity:1;
+        transform:translateX(-50%) scale(1);
+    }
+
+}
+@keyframes descansarSobre{
+
+    0%{
+        transform: translateX(-50%) translateY(0);
+    }
+
+    100%{
+        transform: translateX(-50%) translateY(20px);
+    }
+
+}
+@keyframes balanceoVale{
+
+    0%{
+        transform: translateX(-50%) translateY(-140px) rotate(0deg);
+        box-shadow:0 12px 28px rgba(0,0,0,.15);
+    }
+
+    20%{
+        transform: translateX(-50%) translateY(-140px) rotate(-3deg);
+        box-shadow:0 18px 38px rgba(0,0,0,.22);
+    }
+
+    40%{
+        transform: translateX(-50%) translateY(-140px) rotate(1.5deg);
+        box-shadow:0 16px 34px rgba(0,0,0,.20);
+    }
+
+    60%{
+        transform: translateX(-50%) translateY(-140px) rotate(-1deg);
+        box-shadow:0 14px 31px rgba(0,0,0,.18);
+    }
+
+    80%{
+        transform: translateX(-50%) translateY(-140px) rotate(.5deg);
+        box-shadow:0 13px 29px rgba(0,0,0,.16);
+    }
+
+    100%{
+        transform: translateX(-50%) translateY(-140px) rotate(0deg);
+        box-shadow:0 12px 28px rgba(0,0,0,.15);
+    }
+
+}
+/*==============================
+  UTILIDADES
+==============================*/
+.pop {
+    animation: popBoton .25s ease;
+}
+/* cursor de la maquina de escrivir*/
+.cursor{
+    animation: parpadear 0.8s infinite;
+}
+
+/* ==========================
+   ANIMACION DE ENTRADA
+========================== */
+.oculto {
+    opacity: 0;
+    transform: translate(25px);
+}
+.aparecer {
+    opacity: 1;
+    transform: translate(0);
+    transition: opacity .7s ease, transform .7s ease;
+}
+
+/* ==========================
+   ÚLTIMO REGALO
+========================== */
+#ultimo-regalo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+#boton-ultimo-regalo {
+    padding: 18px 35px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg,#ff9f43,#ff6b6b);
+    box-shadow: 0 12px 28px rgba(255,107,107,.25);
+    transition: 
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+#boton-ultimo-regalo {
+    transform: scale(1.05);
+    box-shadow: 0 18px 40px rgba(255,107,107,.35);    
+}
+#sobre-regalo {
+    margin-top: 40px;
+    display: none;
+    justify-content: center;
+}
+#sobre-regalo.aparecer{
+
+    animation: aparecerSobre .45s ease forwards;
+
+}
+.sobre{
+    position: relative;
+    width: 260px;
+    height: 170px;
+    perspective: 900px;
+}
+.cuerpo {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    border-radius: 12px;
+    border: 3px solid #dddddd;
+    box-shadow: 0 15px 35px rgba(0,0,0,.15);
+    z-index: 1;
+}
+.tapa {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #f4f4f4;
+    clip-path:polygon(0 0,100% 0,50% 60%);
+    border-radius:12px 12px 0 0;
+    z-index:2;
+    transform-origin: top center;
+    transition: transform 1.6s ease-out;
+    backface-visibility: hidden;
+}
+.sobre.abierto .tapa {
+    transform: rotateX(155deg);
+}
+.ocultar-boton {
+    opacity: 0; 
+    transform: scale(.85);
+    pointer-events: none;
+
+    transition: opacity .35s ease, transform .35s e;
+}
+#vale-compensacion{
+    position:absolute;
+    left:50%;
+    top:35px;
+    width:330px;
+    min-height:430px;
+    transform:translateX(-50%) translateY(35px);
+    background:linear-gradient(to bottom, #fffdfb,  #fff8f4);
+    border-radius:8px;
+    border:1px solid #ece5dd;
+    padding:40px 35px;
+    box-shadow: 0 12px 28px rgba(0,0,0,.15);
+    opacity:0;
+    z-index:1;
+    transition:
+        transform 2.2s cubic-bezier(.2,.8,.2,1),
+        opacity .5s ease;
+}
+#vale-compensacion p{
+    white-space: pre-line;
+    text-align:left;
+    line-height:1.9;
+    font-size: 1.08rem;
+}
+#vale-compensacion h2{
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 35px;
+    color: #2b3a4a;
+}
+#vale-compensacion.mostrar {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-140px);
+}
+.sobre.descansar {
+    transform: translateY(10ppx);
+    transition: transform .45 ease;
+}
+#animacion-regalo{
+    position: relative;
+    width: 360px;
+    height: 200px;
+
+    margin: 40px auto;
+
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+}
+#sobre-regalo{
+    position:absolute;
+    left:50%;
+    top:40px;
+
+    transform:translateX(-50%);
+}
+.sobre.descansar{
+
+    animation: descansarSobre .8s ease forwards;
+
+}
+.balanceo{
+
+    animation: balanceoVale .9s ease;
+
+}
+#boton-no-tocar{
+    display: none;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    background: linear-gradient(135deg,#ff6b6b,#ff8e53);
+    color: white;
+    box-shadow: 0 10px 25px rgba(0,0,0,.18);
+}
+
+#boton-no-tocar.visible{
+    display:flex;
+}
+#zona-no-tocar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 900px;
+    transition: margin-top .6s ease;
+}
+
+#zona-no-tocar.activa{
+    margin-top: 120px;   /* luego ajustamos el valor */
+}
+
+#dialogo-no-tocar{
+    max-width:300px;
+    padding:12px 18px;
+    margin-bottom:15px;
+    background:white;
+    border-radius:18px;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+    text-align:center;
+    font-size:1rem;
+    line-height:1.5;
 }

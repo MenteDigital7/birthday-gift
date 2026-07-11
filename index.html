@@ -1,47 +1,74 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
+    <!-- ==========================
+         CONFIGURACIÓN
+    ========================== -->
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>🎉 Feliz Cumpleaños 🎂</title>
+
     <link rel="stylesheet" href="estilos.css">
     <script  src ="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script> 
-  
-    <title>FELIZ CUMPLE</title>
+     
+    
 </head>
   
 <body>
 
-    <!-- fondo animado --> 
+    <!-- ==========================
+         FONDO ANIMADO
+    ========================== -->
+
     <div class ="fondo-animado"></div>
 
-    <!-- Reproductor de musica de fondo --> 
-    <button id="boton-musica" onclick="controlarMusica()">🎵</button>
+    <!-- ==========================
+         REPRODUCTOR DE MÚSICA
+    ========================== -->
+    
+    <button id="boton-musica" onclick="controlarMusica()">
+        <svg id="icono-musica" xmlns="http://www.w3.org/2000/svg"
+             width = "40" hiegth = "40" fill = "white" viewBox ="0 0 24 24">
+            <path id="icono-path" d = "M8 5v14l11-7z"/>
+        </svg>     
+    </button>
     <audio id="fondo-musica" preload="auto"
            src="gones_nuevo.mp3" playsinline>
-        
-          
     </audio>
     
 
-    <!-- Seccion de cuenta regresica-->
+    <!-- ==========================
+         CUENTA REGRESIVA
+    ========================== -->
+
      <div id="seccion-reloj" class="contenedor-reloj">
-        <h2>Falta muy poco..</h2>
+        <div class="emoji-regalo">🎁</div>
+        <h2>Tu regalo estara listo en...</h2>
         <div id="reloj" class="reloj-numeros">00d 00h 00m 00s</div>
-        <p>Preparando algo especial para tu cumpleaños..</p>
+        <p>✨ Gracias por esperar ✨</p>
      </div>
 
-    <!-- CONTENIDO REAL --> 
+    <!-- ==========================
+     CONTENIDO PRINCIPAL
+    ========================== -->
+
     <div id="contenido-regalo" style="display: none;">
 
-        <header>
+        <header id="header-regalo" class="oculto" >
         <h1>!!! FELIZ CUMPLEAÑOS¡¡¡ 🎉</h1>
         <p>Un pequelo detalle digital para ti.</p>
         </header>
 
         <main class="contenedor-cartas"> 
             
-            <!-- Carta 1 -->
-            <div class="carta" onclick="abrirCarta(this)">
+            <!-- ==========================
+                CARTA 1
+            ========================== -->
+
+            <div class="carta oculto" onclick="abrirCarta(this)">
                 <h2>¡Muchísimas felicidades! 🎉</h2>
                 <p class="contenido-carta">
                 <span class="texto"></span>
@@ -72,8 +99,11 @@
                 ¡Disfruta muchísimo tu día! 🎂✨</p> 
             </div>
 
-            <!-- Carta 2 -->
-            <div class="carta" onclick="abrirCarta(this)">
+            <!-- ==========================
+                CARTA 2
+            ========================== -->
+
+            <div class="carta oculto"  onclick="abrirCarta(this)">
                 <h2>Modo: Cumpleañera 🎈</h2>
                 <p class="contenido-carta">
                     <span class="texto"></span>
@@ -92,9 +122,11 @@
                     merecen vivirse al máximo.</p>
             </div>
             
+            <!-- ==========================
+                CARTA 3
+            ========================== -->
             
-            <!-- Carta 3 -->
-            <div class="carta" onclick="abrirCarta(this)">
+            <div class="carta oculto"  onclick="abrirCarta(this)">
                 <h2>Qué suerte haberte conocido ✨</h2>
                 <p class="contenido-carta">
                 <span class="texto"></span>
@@ -124,39 +156,99 @@
             </div>
 
 
-            <!-- Carta 4 -->
-            <div class="carta carta_premio" onclick ="abrirCarta(this)">
-                <h2>Vale Oficial de Compensación🎟️</h2>  
+            <!-- ==========================
+                CARTA 4
+            ========================== -->
+            <div class="carta carta_premio oculto" onclick ="abrirCarta(this)">
+                <h2>🎁 Antes de irte...</h2>  
                 <p class="contenido-carta">
                 <span class="texto"></span>
                 <span class="cursor"></span>
-                🎟️VALE OFICIAL DE COMPENSACIÓN🎟️
+                Antes de terminar...
+                Tengo una última cosa para ti.
+                Pero tendrás que abrir el último regalo.🎁   
+                    
+            </p> 
+            </div>
+        </main> 
+        <!-- ==========================
+        ÚLTIMO REGALO
+    ========================== -->
 
+    <div id="ultimo-regalo">
+
+        <!-- Botón principal -->
+        <button id="boton-ultimo-regalo" class="oculto">
+            🎁 Abrir último regalo
+        </button>
+
+        
+
+        </div>
+
+        <!-- Animación -->
+        <div id="animacion-regalo">
+
+            <div id="sobre-regalo" class="oculto">
+
+                <div class="sobre">
+                    <div class="tapa"></div>
+                    <div class="cuerpo"></div>
+                </div>
+
+            </div>
+
+            <div id="vale-compensacion" class="oculto">
+
+                <h2>🎟️ Vale Oficial de Compensación 🎟️</h2>
+
+                <p>
                 Por la presente, yo, el responsable
-                de no haber podido asistir a tu 
-                cumpleaños, me comprometo 
-                oficialmente a compensarlo 
+                de no haber podido asistir a tu
+                cumpleaños, me comprometo
+                oficialmente a compensarlo
                 con una salida pendiente.
 
                 Este vale puede canjearse por:
+
                 🍦 Unos helados.
                 🍔 Una salida a comer.
                 🚶‍♂️ O simplemente una tarde para conversar.
 
                 Condiciones del vale:
+
                 _No tiene fecha de vencimiento.
                 _La cumpleañera elige el día.
                 _El responsable no puede cancelar.
                 _El objetivo es celebrar tus 18 como se debe.
 
-                Firma del responsable: ✍️
+                ___________________________
 
-                Yo.
-                    
-            </p> 
+                Firma del responsable
+
+                ✍️ Andre
+                </p>
+
             </div>
-        </main> 
-    </div>
+
+        </div>
+        <!-- Botón secreto -->
+        <div id="zona-no-tocar">
+
+            <div id="dialogo-no-tocar" class="oculto"></div>
+
+            <button id="boton-no-tocar" class="oculto">
+                🚫 No tocar
+            </button>
+
+        </div>    
+</div>
+
+     <!-- ==========================
+         JAVASCRIPT
+    ========================== -->
     <script src="script.js"></script>
+
 </body>
 </html>
+
