@@ -736,7 +736,7 @@ header p{
     top:35px;
     width:330px;
     min-height:430px;
-    transform:translateX(-50%);
+    transform:translateX(-50%) translateY(35px);
     background:
 
             linear-gradient(
