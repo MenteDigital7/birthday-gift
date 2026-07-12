@@ -278,7 +278,7 @@ header p{
     box-shadow:0 12px 30px rgba(0,0,0,.28);
     border-left: 5px solid #ff8fab;
     border-radius: 20px;
-    
+    outline: none;
     cursor: pointer;
     
     z-index: 1;
@@ -287,8 +287,12 @@ header p{
         box-shadow 0.35s ease,
         background-color 0.35s ease,
         border-color 0.35s ease;
+
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
     user-select: none;
     -webkit-user-select: none;
+    touch-action: manipulation;   
 }
 .carta.abierta{
     z-index:10;
@@ -306,7 +310,7 @@ header p{
 .carta:active {
     transform: scale(0.98);
     box-shadow: 0 2px 6px rgba(43, 58, 74, 0.02);
-    background-color: #fcfdfe;
+    background: #34245a;
 }
 
 /* Títulos de las Cartas */
