@@ -1,11 +1,13 @@
 //===========================
 // VARIABLES
 //===========================
+let intervalo = null;
 let intervaloFade = null;
 let reproduciedo = false;
 let contadorNoTocar = 0;
 let modoLibre = false;
 
+const regaloCompletado = localStorage.getItem("regaloCompletado");
 const botonNoTocarHTML = document.getElementById("boton-no-tocar");
 
 
@@ -98,10 +100,26 @@ function inicializarEventos(){
 }
 
 // iniciar relog
-const intervalo = setInterval(actualizarReloj, 1000);
-actualizarReloj();
+//const intervalo = setInterval(actualizarReloj, 1000);
+//actualizarReloj();
 inicializarEventos();
+if (regaloCompletado === "si") {
 
+    modoLibre = true;
+
+    document.getElementById("seccion-reloj").style.display = "none";
+    document.getElementById("contenido-regalo").style.display = "block";
+    document.getElementById("fondo-principal").classList.add("regalo");
+    document.getElementById("boton-musica").style.display = "flex";
+
+    mostrarRegalo();
+
+} else {
+
+    intervalo = setInterval(actualizarReloj,1000);
+    actualizarReloj();
+
+}
 //=================================
 
 // EVENTOS VISUALES
@@ -123,10 +141,13 @@ function lanzarConfeti() {
 function mostrarRegalo() {
     const header = document.getElementById("header-regalo");
     const primeraCarta = document.querySelector(".carta");
-    const retrasoInicial = 800;
-    const intervalo = 600;
-    const direcciones = ["izquierda", "derecha","arriba","abajo"];
+   
 
+    if (regaloCompletado === "si") {
+
+    modoLibre = true;
+
+    }
     // aparece el encabesado
     setTimeout(() => {
         header.classList.remove("oculto");
@@ -134,12 +155,33 @@ function mostrarRegalo() {
     }, 150);
     
     // aparece la carta
+   if (!modoLibre) {
+
+    // Primera visita: modo guiado
     setTimeout(() => {
+
         primeraCarta.classList.remove("no-mostrar");
         primeraCarta.classList.remove("oculto");
         primeraCarta.classList.add("aparecer");
-        
-    }, 800);   
+
+    },800);
+
+    } else {
+
+    // Segunda visita: modo libre
+    document.querySelectorAll(".carta").forEach(carta => {
+
+        carta.classList.remove("no-mostrar");
+        carta.classList.remove("oculto");
+        carta.classList.add("aparecer");
+
+    });
+    const botonRegalo = document.getElementById("boton-ultimo-regalo");
+
+    botonRegalo.classList.remove("no-mostrar");
+    botonRegalo.classList.remove("oculto");
+    botonRegalo.classList.add("aparecer");
+    }  
     
 }
 
@@ -307,13 +349,17 @@ function abrirCarta(elemento) {
     cursor.style.display = "inline";
 
     const textoCompleto = parrafo.dataset.texto;
-    if (parrafo.dataset.escrito === "true") {
+    if (modoLibre || parrafo.dataset.escrito === "true") {
 
     textoSpan.textContent = textoCompleto;
     cursor.style.display = "none";
 
+    parrafo.classList.add("abierta");
+    carta.classList.add("abierta");
+
     return;
     }
+    
     let i = Number(parrafo.dataset.indice);
 
     textoSpan.textContent = textoCompleto.slice(0, i);
@@ -350,9 +396,11 @@ function abrirCarta(elemento) {
             } else {
 
                 // Terminó de escribir
-                parrafo.dataset.indice =  "true";
+                parrafo.dataset.escrito = "true";
+                parrafo.dataset.indice = textoCompleto.length;
+
                 textoSpan.textContent = textoCompleto;
-                cursor.style.display = "none";
+                cursor.style.display = "none"
   
                 if (!esUltimaCarta && !modoLibre) {
 
@@ -424,8 +472,7 @@ audioHTML.onended =() => {
 // FUNCIONES DEL ULTIMO REGAL0
 //=======================================
 function abrirUltimoRegalo() {
-    console.log("Empieza abrirUltimoRegalo");
-
+    
     const boton = document.getElementById("boton-ultimo-regalo");
     const sobre = document.getElementById("sobre-regalo");
     const sobreAnimado= sobre.querySelector(".sobre");
@@ -500,7 +547,9 @@ function abrirUltimoRegalo() {
 
     modoLibre = true;
 
-    console.log("Modo libre activado ✅");
+        localStorage.setItem("regaloCompletado", "si");
+
+        console.log("Modo libre activado ✅");
 
     },4500);
 } 
@@ -517,7 +566,6 @@ function abrirUltimoRegalo() {
         boton.disabled = false;
     },250);
     const dialogo = document.getElementById("dialogo-no-tocar");
-    
     const mensaje = mensajesNoTocar[
         Math.min(contadorNoTocar - 1, mensajesNoTocar.length - 1)
         ];
@@ -536,11 +584,6 @@ function abrirUltimoRegalo() {
         dialogo.classList.remove("no-mostrar");
         dialogo.classList.remove("oculto");
 
-        dialogo.textContent =
-            mensajesNoTocar[
-                Math.min(contadorNoTocar - 1, mensajesNoTocar.length - 1)
-            ];
-
         dialogo.style.display = "block";
         requestAnimationFrame(()=>{
             dialogo.style.opacity="1";
@@ -557,7 +600,7 @@ function abrirUltimoRegalo() {
                 dialogo.style.display = "none";
             }, 300);
 
-        }, 2000);
+        }, 4000);
 
         if(contadorNoTocar===5){
 
